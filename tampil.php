@@ -2,7 +2,7 @@
 require_once 'koneksi.php'; // Sesuaikan dengan file koneksi database Anda
 
 // Your SQL query
-$sql = "SELECT NProduk, HJual, gambarproduk FROM produk";
+$sql = "SELECT NProduk, HJual FROM produk";
 
 // Execute the query
 $result = $conn->query($sql);
@@ -18,27 +18,7 @@ if ($result->num_rows > 0) {
     while ($row = $result->fetch_assoc()) {
         echo "Nama Produk: " . $row['NProduk'] . "<br>";
         echo "Harga Jual: " . $row['HJual'] . "<br>";
-
-        // Display image directly from file path
-        $imagePath = $row['gambarproduk'];
-
-        // Check if the file exists
-        if (file_exists($imagePath)) {
-            // Read image data
-            $imageData = file_get_contents($imagePath);
-
-            // Convert image data to Base64
-            $imageBase64 = base64_encode($imageData);
-
-            // Determine the image type
-            $imageInfo = getimagesize($imagePath);
-            $imageType = $imageInfo['mime'];
-
-            // Display the image using Base64 and the correct MIME type
-            echo '<img src="data:' . $imageType . ';base64,' . $imageBase64 . '" alt="Product Image" style="max-width: 300px;"><br>';
-        } else {
-            echo "Image not found: $imagePath<br>";
-        }
+        echo "<br>";
     }
 } else {
     echo "No records found";
