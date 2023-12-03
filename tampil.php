@@ -4,6 +4,13 @@ require_once 'koneksi.php';
 
 // Periksa apakah ada data yang dikirimkan melalui POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Membuat koneksi di sini agar tetap terbuka selama operasi
+    $conn = new mysqli($host, $username, $password, $database);
+
+    // Menangani kesalahan koneksi
+    if ($conn->connect_error) {
+        die("Koneksi gagal: " . $conn->connect_error);
+    }
     // Query untuk mengambil data dari tabel (ganti 'nama_tabel' dengan nama tabel yang sesuai)
     $sql = "SELECT NProduk, HJual, gambarproduk FROM produk";
     $result = $conn->query($sql);
