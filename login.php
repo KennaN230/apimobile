@@ -1,5 +1,5 @@
 <?php
-require_once 'koneksilokal.php'; // Sesuaikan dengan file koneksi database Anda
+require_once 'koneksi.php'; // Sesuaikan dengan file koneksi database Anda
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = mysqli_real_escape_string($conn, $_POST["NKonsumen"]);
