@@ -2,7 +2,7 @@
 require_once 'koneksi.php'; // Include your database connection file
 
 // Your SQL query
-$sql = "SELECT KProduk, NProduk, HJual, Image FROM produk";
+$sql = "SELECT KProduk, NProduk, HJual, gambarproduk FROM produk";
 
 // Execute the query
 $result = $conn->query($sql);
