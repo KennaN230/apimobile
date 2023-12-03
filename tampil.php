@@ -20,9 +20,8 @@ if ($result->num_rows > 0) {
         echo "Nama Produk: " . $row['NProduk'] . "<br>";
         echo "Harga Jual: " . $row['HJual'] . "<br>";
 
-        // Display Base64-encoded image
-        $imageBase64 = base64_encode($row['Image']);
-        echo '<img src="data:image/jpeg;base64,' . $imageBase64 . '" alt="Product Image"><br>';
+        // Display image directly from file path
+        echo '<img src="' . $row['Image'] . '" alt="Product Image"><br>';
     }
 } else {
     echo "No records found";
