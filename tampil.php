@@ -1,45 +1,45 @@
 <?php
-require_once 'koneksi.php'; // Sesuaikan dengan file koneksi database Anda
+// Sertakan file koneksi
+include 'koneksi.php';
 
-// Your SQL query
-$sql = "SELECT NProduk, HJual, gambarproduk FROM produk";
+// Periksa apakah ada data yang dikirimkan melalui POST
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    // Query untuk mengambil data dari tabel (ganti 'nama_tabel' dengan nama tabel yang sesuai)
+    $sql = "SELECT NProduk, HJual, gambarproduk FROM produk";
+    $result = $conn->query($sql);
 
-// Execute the query
-$result = $conn->query($sql);
-
-// Check if the query was successful
-if (!$result) {
-    $response = array('status' => 'error', 'message' => 'Query failed: ' . $conn->error);
-    echo json_encode($response);
-} else {
-    // Check if there are rows in the result set
-    if ($result->num_rows > 0) {
-        // Fetch data and build an array
-        $data = array();
-        while ($row = $result->fetch_assoc()) {
-            // Convert BLOB image data to Base64
-            $imageData = $row['gambarproduk'];
-            $imageBase64 = base64_encode($imageData);
-
-            $data[] = array(
-                'NamaProduk' => $row['NProduk'],
-                'HargaJual' => $row['HJual'],
-                'ImageBase64' => $imageBase64
-            );
-        }
-
-        // Send JSON response
-        $response = array('status' => 'success', 'data' => $data);
-        echo json_encode($response);
-    } else {
-        $response = array('status' => 'error', 'message' => 'No records found');
-        echo json_encode($response);
+    // Memeriksa apakah query berhasil dijalankan
+    if ($result === false) {
+        die("Error: " . $conn->error);
     }
 
-    // Close the result set
-    $result->close();
-}
+    // Memeriksa apakah ada data yang diambil
+    if ($result->num_rows > 0) {
+        // Menampilkan data
+        echo "<table border='1'>
+                <tr>
+                    <th>Nama</th>
+                    <th>Harga</th>
+                    <th>Gambar</th>
+                </tr>";
 
-// Close the connection when you're done using it
-$conn->close();
+        while ($row = $result->fetch_assoc()) {
+            echo "<tr>
+                    <td>" . $row["nama"] . "</td>
+                    <td>" . $row["harga"] . "</td>
+                    <td><img src='" . $row["gambar"] . "' alt='Gambar'></td>
+                  </tr>";
+        }
+
+        echo "</table>";
+    } else {
+        echo "Tidak ada data.";
+    }
+
+    // Menutup koneksi
+    $conn->close();
+} else {
+    // Jika tidak ada data yang dikirimkan melalui POST, mungkin Anda ingin menampilkan formulir atau melakukan tindakan lainnya.
+    echo "Tidak ada data yang dikirimkan melalui metode POST.";
+}
 ?>
