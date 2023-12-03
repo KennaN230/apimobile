@@ -1,5 +1,5 @@
 <?php
-require_once 'koneksi.php';
+require_once 'koneksilokal.php';
 
 // Mengambil data produk dari database
 $sql = "SELECT KProduk, NProduk, HJual, Image FROM produk";
