@@ -1,7 +1,12 @@
 <?php
+require_once 'koneksi.php'; // Sertakan file koneksi.php
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    require_once 'koneksi.php'; // Sertakan file koneksi.php
+    $conn = new mysqli($host, $username, $password, $database);
+
+    if ($conn->connect_error) {
+        die("Koneksi gagal: " . $conn->connect_error);
+    }
 
     // Mendapatkan data dari permintaan POST
     $username = $_POST['NKonsumen'];
