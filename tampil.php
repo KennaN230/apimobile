@@ -2,51 +2,44 @@
 // Sertakan file koneksi
 require_once 'koneksi.php';
 
-// Periksa apakah ada data yang dikirimkan melalui POST
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Membuat koneksi di sini agar tetap terbuka selama operasi
-    $conn = new mysqli($host, $username, $password, $database);
+// Membuat koneksi di sini agar tetap terbuka selama operasi
+$conn = new mysqli($host, $username, $password, $database);
 
-    // Menangani kesalahan koneksi
-    if ($conn->connect_error) {
-        die("Koneksi gagal: " . $conn->connect_error);
-    }
-    // Query untuk mengambil data dari tabel (ganti 'nama_tabel' dengan nama tabel yang sesuai)
-    $sql = "SELECT NProduk, HJual, gambarproduk FROM produk";
-    $result = $conn->query($sql);
-
-    // Memeriksa apakah query berhasil dijalankan
-    if ($result === false) {
-        die("Error: " . $conn->error);
-    }
-
-    // Memeriksa apakah ada data yang diambil
-    if ($result->num_rows > 0) {
-        // Menampilkan data
-        echo "<table border='1'>
-                <tr>
-                    <th>Nama</th>
-                    <th>Harga</th>
-                    <th>Gambar</th>
-                </tr>";
-
-        while ($row = $result->fetch_assoc()) {
-            echo "<tr>
-                    <td>" . $row["NProduk"] . "</td>
-                    <td>" . $row["HJual"] . "</td>
-                    <td><img src='" . $row["gambarproduk"] . "' alt='Gambar'></td>
-                  </tr>";
-        }
-
-        echo "</table>";
-    } else {
-        echo "Tidak ada data.";
-    }
-
-    // Menutup koneksi
-    $conn->close();
-} else {
-    // Jika tidak ada data yang dikirimkan melalui POST, mungkin Anda ingin menampilkan formulir atau melakukan tindakan lainnya.
-    echo "Tidak ada data yang dikirimkan melalui metode POST.";
+// Menangani kesalahan koneksi
+if ($conn->connect_error) {
+    die("Koneksi gagal: " . $conn->connect_error);
 }
+
+// Query untuk mengambil data dari tabel (ganti 'nama_tabel' dengan nama tabel yang sesuai)
+$sql = "SELECT NProduk, HJual FROM produk";
+$result = $conn->query($sql);
+
+// Memeriksa apakah query berhasil dijalankan
+if ($result === false) {
+    die("Error: " . $conn->error);
+}
+
+// Memeriksa apakah ada data yang diambil
+if ($result->num_rows > 0) {
+    // Menampilkan data
+    echo "<table border='1'>
+            <tr>
+                <th>Nama</th>
+                <th>Harga</th>
+            </tr>";
+
+    while ($row = $result->fetch_assoc()) {
+        echo "<tr>
+                <td>" . $row["NProduk"] . "</td>
+                <td>" . $row["HJual"] . "</td>
+              </tr>";
+    }
+
+    echo "</table>";
+} else {
+    echo "Tidak ada data.";
+}
+
+// Menutup koneksi
+$conn->close();
 ?>
