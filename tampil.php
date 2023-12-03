@@ -1,39 +1,36 @@
 <?php
-require_once 'koneksilokal.php';
+require_once 'koneksi.php'; // Include your database connection file
 
-// Mengambil data produk dari database
+// Your SQL query
 $sql = "SELECT KProduk, NProduk, HJual, Image FROM produk";
+
+// Execute the query
 $result = $conn->query($sql);
 
-// Menangani kesalahan query
+// Check if the query was successful
 if ($result === false) {
     die("Query failed: " . $conn->error);
 }
 
-// Menyimpan hasil dalam bentuk array asosiatif
-$rows = array();
+// Check if there are rows in the result set
 if ($result->num_rows > 0) {
+    // Fetch data and display
     while ($row = $result->fetch_assoc()) {
-        // Mengonversi gambar ke dalam format Base64
-        $imageBase64 = base64_encode($row['Image']);
-        
-        // Hapus kolom Image dari array atau beri nama yang berbeda jika tidak ingin menyertakan gambar secara langsung dalam JSON
-        unset($row['Image']);
-        
-        // Tambahkan hasil konversi gambar sebagai kolom baru
-        $row['ImageBase64'] = $imageBase64;
+        echo "Kode Produk: " . $row['KProduk'] . "<br>";
+        echo "Nama Produk: " . $row['NProduk'] . "<br>";
+        echo "Harga Jual: " . $row['HJual'] . "<br>";
 
-        // Tambahkan URL gambar sebagai kolom baru (gantilah 'nama_field_gambar' dengan nama field gambar di tabel)
-        $row['ImageUrl'] = "https://example.com/path/to/images/" . $row['nama_field_gambar'];
-        
-        $rows[] = $row;
+        // Display Base64-encoded image
+        $imageBase64 = base64_encode($row['Image']);
+        echo '<img src="data:image/jpeg;base64,' . $imageBase64 . '" alt="Product Image"><br>';
     }
+} else {
+    echo "No records found";
 }
 
-// Menutup koneksi
-$conn->close();
+// Close the result set
+$result->close();
 
-// Mengirimkan data dalam format JSON dengan header Content-Type
-header('Content-Type: application/json');
-echo json_encode($rows);
+// Close the connection when you're done using it
+$conn->close();
 ?>
