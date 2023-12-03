@@ -1,5 +1,6 @@
 <?php
-require_once 'koneksi.php'; // Sesuaikan dengan file koneksi database Anda
+// Sesuaikan dengan file koneksi database Anda
+require_once 'koneksi.php';
 
 // Your SQL query
 $sql = "SELECT NProduk, HJual, gambarproduk FROM produk";
