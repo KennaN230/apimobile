@@ -13,6 +13,7 @@ if ($conn->connect_error) {
 }
 
 // Kode SQL atau operasi lain dapat ditambahkan di sini
+echo "Koneksi Berhasil";
 
 // Menutup koneksi
 $conn->close();
