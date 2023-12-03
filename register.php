@@ -2,6 +2,13 @@
 require_once 'koneksi.php'; // Adjust according to your database connection file
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Membuat koneksi di sini agar tetap terbuka selama operasi
+    $conn = new mysqli($host, $username, $password, $database);
+
+    // Menangani kesalahan koneksi
+    if ($conn->connect_error) {
+        die("Koneksi gagal: " . $conn->connect_error);
+    }
     $name = mysqli_real_escape_string($conn, $_POST['NKonsumen']);
     $email = mysqli_real_escape_string($conn, $_POST['Email']);
     $phone = mysqli_real_escape_string($conn, $_POST['NoTelp']);
