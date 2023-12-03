@@ -1,6 +1,6 @@
 <?php
 // Sertakan file koneksi
-include 'koneksi.php';
+require_once 'koneksi.php';
 
 // Periksa apakah ada data yang dikirimkan melalui POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -25,9 +25,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
         while ($row = $result->fetch_assoc()) {
             echo "<tr>
-                    <td>" . $row["nama"] . "</td>
-                    <td>" . $row["harga"] . "</td>
-                    <td><img src='" . $row["gambar"] . "' alt='Gambar'></td>
+                    <td>" . $row["NProduk"] . "</td>
+                    <td>" . $row["HJual"] . "</td>
+                    <td><img src='" . $row["gambarproduk"] . "' alt='Gambar'></td>
                   </tr>";
         }
 
