@@ -1,5 +1,5 @@
 <?php
-require_once 'koneksi.php'; // Include your database connection file
+require_once 'koneksi.php'; // Sesuaikan dengan file koneksi database Anda
 
 // Your SQL query
 $sql = "SELECT NProduk, HJual, gambarproduk FROM produk";
@@ -39,7 +39,6 @@ if ($result->num_rows > 0) {
 } else {
     echo "No records found";
 }
-echo "error";
 
 // Close the result set
 $result->close();
