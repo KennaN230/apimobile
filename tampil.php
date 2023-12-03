@@ -21,7 +21,17 @@ if ($result->num_rows > 0) {
 
         // Display image directly from file path
         $imagePath = $row['gambarproduk'];
-        echo '<img src="' . $imagePath . '" alt="Product Image" style="max-width: 300px;"><br>';
+
+        // Debugging: Display the image path
+        echo "Image Path: " . $imagePath . "<br>";
+
+        // Check if the file exists
+        if (file_exists($imagePath)) {
+            // Display the image
+            echo '<img src="' . $imagePath . '" alt="Product Image" style="max-width: 300px;"><br>';
+        } else {
+            echo "Image not found<br>";
+        }
     }
 } else {
     echo "No records found";
