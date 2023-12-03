@@ -20,7 +20,7 @@ if ($result->num_rows > 0) {
         echo "Harga Jual: " . $row['HJual'] . "<br>";
 
         // Display image directly from file path
-        $imagePath = $row['Image'];
+        $imagePath = $row['gambarproduk'];
         echo '<img src="' . $imagePath . '" alt="Product Image" style="max-width: 300px;"><br>';
     }
 } else {
