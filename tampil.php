@@ -39,6 +39,7 @@ if ($result->num_rows > 0) {
 } else {
     echo "No records found";
 }
+echo "error";
 
 // Close the result set
 $result->close();
