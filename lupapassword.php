@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if ($updateResult) {
             $response = array('status' => 'success', 'message' => 'Berhasil Mengubah Password');
         } else {
-            $response = array('status' => 'error', 'message' => 'Gagal Mengubah Password');
+            $response = array('status' => 'error', 'message' => 'Gagal Mengubah Password: ' . $conn->error);
         }
     }
 } else {
@@ -31,5 +31,4 @@ echo json_encode($response);
 
 // Tutup koneksi database
 $conn->close();
-
 ?>
