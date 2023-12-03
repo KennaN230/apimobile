@@ -24,14 +24,14 @@ if ($result->num_rows > 0) {
 
         // Check if the file exists
         if (file_exists($imagePath)) {
-            // Check if the file is a valid image
-            $imageInfo = getimagesize($imagePath);
-            if ($imageInfo !== false) {
-                // Display the image
-                echo '<img src="' . $imagePath . '" alt="Product Image" style="max-width: 300px;"><br>';
-            } else {
-                echo "Invalid image file: $imagePath<br>";
-            }
+            // Read image data
+            $imageData = file_get_contents($imagePath);
+
+            // Convert image data to Base64
+            $imageBase64 = base64_encode($imageData);
+
+            // Display the image using Base64
+            echo '<img src="data:image/jpeg;base64,' . $imageBase64 . '" alt="Product Image" style="max-width: 300px;"><br>';
         } else {
             echo "Image not found: $imagePath<br>";
         }
