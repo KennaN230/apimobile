@@ -27,8 +27,14 @@ if ($result->num_rows > 0) {
 
         // Check if the file exists
         if (file_exists($imagePath)) {
-            // Display the image
-            echo '<img src="' . $imagePath . '" alt="Product Image" style="max-width: 300px;"><br>';
+            // Check if the file is a valid image
+            $imageInfo = getimagesize($imagePath);
+            if ($imageInfo !== false) {
+                // Display the image
+                echo '<img src="' . $imagePath . '" alt="Product Image" style="max-width: 300px;"><br>';
+            } else {
+                echo "Invalid image file<br>";
+            }
         } else {
             echo "Image not found<br>";
         }
