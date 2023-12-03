@@ -1,7 +1,7 @@
 <?php
 $host = "griya-srikandi.tifa.myhost.id";
-$username = "@JTIpolije2023";
-$password = "tifamyho_srikandi";
+$username = "tifamyho_srikandi";
+$password = "@JTIpolije2023";
 $database = "tifamyho_srikandi";
 
 // Membuat koneksi
