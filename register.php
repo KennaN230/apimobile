@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Insert new record if username and email are unique using prepared statements
         $insertQuery = "INSERT INTO konsumen (IdKonsumen, NKonsumen, AlamatKonsumen, NoTelp, Email, Password) VALUES (NULL, ?, ?, ?, ?, ?)";
         $insertStmt = mysqli_prepare($conn, $insertQuery);
-        mysqli_stmt_bind_param($insertStmt, "sssss", $name, $address, $phone, $phone, $password);
+        mysqli_stmt_bind_param($insertStmt, "sssss", $name, $address, $phone, $email, $password);
 
         if (mysqli_stmt_execute($insertStmt)) {
             $response = array('status' => 'success', 'message' => 'Registration successful');
