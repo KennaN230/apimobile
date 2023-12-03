@@ -33,6 +33,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         // Close the result set
+        echo json_encode($response);
         $result->close();
     }
 }
