@@ -1,6 +1,5 @@
 <?php
-// Sesuaikan dengan file koneksi database Anda
-require_once 'koneksi.php';
+require_once 'koneksi.php'; // Sesuaikan dengan file koneksi database Anda
 
 // Your SQL query
 $sql = "SELECT NProduk, HJual, gambarproduk FROM produk";
@@ -31,8 +30,12 @@ if ($result->num_rows > 0) {
             // Convert image data to Base64
             $imageBase64 = base64_encode($imageData);
 
-            // Display the image using Base64
-            echo '<img src="data:image/jpeg;base64,' . $imageBase64 . '" alt="Product Image" style="max-width: 300px;"><br>';
+            // Determine the image type
+            $imageInfo = getimagesize($imagePath);
+            $imageType = $imageInfo['mime'];
+
+            // Display the image using Base64 and the correct MIME type
+            echo '<img src="data:' . $imageType . ';base64,' . $imageBase64 . '" alt="Product Image" style="max-width: 300px;"><br>';
         } else {
             echo "Image not found: $imagePath<br>";
         }
