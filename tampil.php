@@ -2,7 +2,7 @@
 require_once 'koneksi.php'; // Include your database connection file
 
 // Your SQL query
-$sql = "SELECT KProduk, NProduk, HJual, gambarproduk FROM produk";
+$sql = "SELECT NProduk, HJual, Image FROM produk";
 
 // Execute the query
 $result = $conn->query($sql);
@@ -16,12 +16,12 @@ if ($result === false) {
 if ($result->num_rows > 0) {
     // Fetch data and display
     while ($row = $result->fetch_assoc()) {
-        echo "Kode Produk: " . $row['KProduk'] . "<br>";
         echo "Nama Produk: " . $row['NProduk'] . "<br>";
         echo "Harga Jual: " . $row['HJual'] . "<br>";
 
         // Display image directly from file path
-        echo '<img src="' . $row['Image'] . '" alt="Product Image"><br>';
+        $imagePath = $row['Image'];
+        echo '<img src="' . $imagePath . '" alt="Product Image" style="max-width: 300px;"><br>';
     }
 } else {
     echo "No records found";
