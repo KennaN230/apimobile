@@ -22,12 +22,6 @@ if ($result === false) {
 // Memeriksa apakah ada data yang diambil
 if ($result->num_rows > 0) {
     // Menampilkan data
-    echo "<table border='1'>
-            <tr>
-                <th>Nama</th>
-                <th>Harga</th>
-            </tr>";
-
     while ($row = $result->fetch_assoc()) {
         echo "<tr>
                 <td>" . $row["NProduk"] . "</td>
