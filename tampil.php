@@ -8,7 +8,7 @@ $sql = "SELECT NProduk, HJual, gambarproduk FROM produk";
 $result = $conn->query($sql);
 
 // Check if the query was successful
-if ($result === false) {
+if (!$result) {
     die("Query failed: " . $conn->error);
 }
 
@@ -22,9 +22,6 @@ if ($result->num_rows > 0) {
         // Display image directly from file path
         $imagePath = $row['gambarproduk'];
 
-        // Debugging: Display the image path
-        echo "Image Path: " . $imagePath . "<br>";
-
         // Check if the file exists
         if (file_exists($imagePath)) {
             // Check if the file is a valid image
@@ -33,10 +30,10 @@ if ($result->num_rows > 0) {
                 // Display the image
                 echo '<img src="' . $imagePath . '" alt="Product Image" style="max-width: 300px;"><br>';
             } else {
-                echo "Invalid image file<br>";
+                echo "Invalid image file: $imagePath<br>";
             }
         } else {
-            echo "Image not found<br>";
+            echo "Image not found: $imagePath<br>";
         }
     }
 } else {
