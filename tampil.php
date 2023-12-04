@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 }
 
 // Query untuk mengambil data dari tabel (ganti 'nama_tabel' dengan nama tabel yang sesuai)
-$sql = "SELECT NProduk, HJual FROM produk";
+$sql = "SELECT NProduk, HJual, gambarproduk FROM produk";
 $result = $conn->query($sql);
 
 // Memeriksa apakah query berhasil dijalankan
@@ -25,6 +25,9 @@ if ($result->num_rows > 0) {
     $data = array();
 
     while ($row = $result->fetch_assoc()) {
+        // Menambahkan URL gambar ke setiap baris data
+        $row['gambarproduk'] = 'URL_GAMBAR_BASE' . $row['gambarproduk'];
+
         $data[] = $row;
     }
 
