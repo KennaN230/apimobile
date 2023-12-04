@@ -1,5 +1,4 @@
 <?php
-// Sertakan file koneksi
 require_once 'koneksi.php';
 
 // Membuat koneksi di sini agar tetap terbuka selama operasi
@@ -25,8 +24,14 @@ if ($result->num_rows > 0) {
     $data = array();
 
     while ($row = $result->fetch_assoc()) {
-        // Menambahkan URL gambar ke setiap baris data
-        $row['gambarproduk'] = 'URL_GAMBAR_BASE' . $row['gambarproduk'];
+        // Mendapatkan path gambar
+        $gambarPath = 'PATH_TO_YOUR_IMAGE_DIRECTORY/' . $row['gambarproduk'];
+
+        // Mengonversi gambar ke base64
+        $base64Image = base64_encode(file_get_contents($gambarPath));
+
+        // Menambahkan base64 ke setiap baris data
+        $row['gambarproduk'] = $base64Image;
 
         $data[] = $row;
     }
