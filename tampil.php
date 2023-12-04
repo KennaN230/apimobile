@@ -21,15 +21,15 @@ if ($result === false) {
 
 // Memeriksa apakah ada data yang diambil
 if ($result->num_rows > 0) {
-    // Menampilkan data
+    // Menyimpan data dalam array
+    $data = array();
+
     while ($row = $result->fetch_assoc()) {
-        echo "<tr>
-                <td>" . $row["NProduk"] . "</td>
-                <td>" . $row["HJual"] . "</td>
-              </tr>";
+        $data[] = $row;
     }
 
-    echo "</table>";
+    // Mengubah array menjadi format JSON dan menampilkannya
+    echo json_encode($data);
 } else {
     echo "Tidak ada data.";
 }
