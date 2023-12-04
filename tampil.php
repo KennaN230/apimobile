@@ -25,7 +25,7 @@ if ($result->num_rows > 0) {
 
     while ($row = $result->fetch_assoc()) {
         // Mendapatkan path gambar
-        $gambarPath = 'PATH_TO_YOUR_IMAGE_DIRECTORY/' . $row['gambarproduk'];
+        $gambarPath = 'databarang.php' . $row['gambarproduk'];
 
         // Mengonversi gambar ke base64
         $base64Image = base64_encode(file_get_contents($gambarPath));
