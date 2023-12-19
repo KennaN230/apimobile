@@ -3,7 +3,7 @@
 require_once 'koneksilokal.php';
 
 // Membuat koneksi ke database
-$conn = new mysqli($host, $user, $password, $database);
+$conn = new mysqli($host, $username, $password, $database);
 
 // Menangani kesalahan koneksi
 if ($conn->connect_error) {
@@ -18,22 +18,13 @@ $result = $conn->query($sql);
 // Menampilkan hasil query
 if ($result->num_rows > 0) {
     echo '<h2>Daftar Pesanan</h2>';
-    echo '<table border="1">
-            <tr>
-                <th>No Pesanan</th>
-                <th>Tanggal Pemesanan</th>
-                <th>Tipe Pembayaran</th>
-                <th>Qty</th>
-                <th>Total Harga</th>
-            </tr>';
-
     while ($row = $result->fetch_assoc()) {
         echo '<tr>
                 <td>' . $row['NoPesanan'] . '</td>
                 <td>' . $row['TglPemesanan'] . '</td>
+                <td>' . $row['Bawal'] . '</td>
+                <td>' . $row['TItem'] . '</td>
                 <td>' . $row['TPembayaran'] . '</td>
-                <td>' . $row['qty'] . '</td>
-                <td>' . $row['harga'] * $row['qty'] . '</td>
             </tr>';
     }
 
