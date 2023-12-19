@@ -1,6 +1,6 @@
 <?php
 // Sertakan file koneksi atau kodenya sesuai dengan kebutuhan
-require_once 'koneksilokal.php';
+require_once 'koneksi.php';
 
 // Membuat koneksi ke database
 $conn = new mysqli($host, $username, $password, $database);
