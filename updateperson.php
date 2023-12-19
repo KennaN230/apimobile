@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['username']) && isset(
     $email = ($_POST['Email']);
 
     // Update the user in the database
-    $sql = "UPDATE konsumen SET AlamatKonsumen = '$address', NoTelp = '$phoneNumber', Email = '$email' WHERE name = '$name'";
+    $sql = "UPDATE konsumen SET AlamatKonsumen = '$address', NoTelp = '$phoneNumber', Email = '$email' WHERE username = '$name'";
 
     if ($conn->query($sql) === TRUE) {
         echo "User updated successfully";
