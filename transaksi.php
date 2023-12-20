@@ -1,34 +1,43 @@
 <?php
-require_once 'koneksi.php'; // Adjust according to your database connection file
+// Koneksi ke database MySQL
+require_once 'koneksi.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    // Membuat koneksi di sini agar tetap terbuka selama operasi
-    $conn = new mysqli($host, $username, $password, $database);
+$conn = new mysqli($host, $username, $password, $database);
 
-    // Menangani kesalahan koneksi
-    if ($conn->connect_error) {
-        die("Koneksi gagal: " . $conn->connect_error);
-    }
-
-    // Assuming 'Bawal' is payment amount and 'Titem' is quantity, modify these accordingly
-    $paymentAmount = mysqli_real_escape_string($conn, $_POST['Bawal']);
-    $quantity = mysqli_real_escape_string($conn, $_POST['Titem']);
-
-    // Insert data into the database for pemesanan
-    $insertQuery = "INSERT INTO pemesanan (IdPemesanan, PaymentAmount, Quantity) VALUES (NULL, ?, ?)";
-    $insertStmt = mysqli_prepare($conn, $insertQuery);
-    mysqli_stmt_bind_param($insertStmt, "ss", $paymentAmount, $quantity);
-
-    if (mysqli_stmt_execute($insertStmt)) {
-        $response = array('status' => 'success', 'message' => 'Order placed successfully');
-    } else {
-        $response = array('status' => 'error', 'message' => 'Order placement failed');
-    }
-
-    // Send the JSON response
-    echo json_encode($response);
-
-    // Close the prepared statements
-    mysqli_stmt_close($insertStmt);
+// Check koneksi
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
 }
+
+// Handle request dari aplikasi Android
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Ambil data dari permintaan POST
+    $cartItemsJson = $_POST['cartItems']; // Data JSON dari objek CartItem
+
+    // Decode JSON menjadi array PHP
+    $cartItems = json_decode($cartItemsJson, true);
+
+    // Loop melalui setiap item dalam cartItems
+    foreach ($cartItems as $item) {
+        // Ambil data dari setiap item
+        $productName = $item['Bawal'];
+        $price = $item['TPembayaran'];
+        $quantity = $item['TItem'];
+
+        // Lakukan operasi yang diperlukan di database (misalnya, INSERT)
+        $sql = "INSERT INTO pemesanan (TPembayaran, TItem, Bawal) VALUES ('$price', $quantity, $productName)";
+
+        if ($conn->query($sql) !== TRUE) {
+            $response = array('status' => 'error', 'message' => 'Error during insert: ' . $conn->error);
+            echo json_encode($response);
+            exit;
+        }
+    }
+
+    $response = array('status' => 'success', 'message' => 'Data inserted successfully');
+    echo json_encode($response);
+}
+
+// Tutup koneksi ke database
+$conn->close();
 ?>
